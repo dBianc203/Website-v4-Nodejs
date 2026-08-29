@@ -1,7 +1,9 @@
 import { skills } from "../data/skills";
 import { resume } from "../data/resume";
 import { contact } from "../data/contact";
+import { links } from "../data/links";
 import { homelab } from "../data/homelab";
+import { topology } from "../data/topology";
 
 export function executeCommand(input: string): string[] {
   const command = input.trim().toLowerCase();
@@ -28,6 +30,12 @@ export function executeCommand(input: string): string[] {
 
     case "show education":
       return showEducation();
+    
+    case "show links":
+      return showLinks();
+
+    case "show homelab":
+      return showHomelab();
 
     case "show certifications":
       return showCertifications();
@@ -35,8 +43,8 @@ export function executeCommand(input: string): string[] {
     case "show contact":
       return showContact();
 
-    case "show homelab":
-      return showHomelab();
+    case "show topology":
+      return showTopology();
 
       case "clear":
       return ["__CLEAR__"];
@@ -66,7 +74,8 @@ function showHelp(): string[] {
     "  show education        Education",
     "  show certifications   Certifications",
     "  show projects         Technical projects",
-    "  show homelab          Homelab infrastructure",
+    "  show homelab          Show homelab information",
+    "  show topology         Homelab topology",
     "  show contact          Contact information",
     "  show links            Show some helpful links",
     "",
@@ -201,13 +210,39 @@ return [
 ];
 }
 
+function showTopology(): string[] {
+  return [
+    "",
+    "HOMELAB NETWORK TOPOLOGY",
+    "════════════════",
+    "",
+    ...topology.diagram.split("\n"),
+    "",
+  ];
+}
+
+function showLinks(): string[] {
+  return [
+    "",
+    "LINKS",
+    "═════",
+    "",
+    `LinkedIn: ${links.linkedin}`,
+    `GitHub: ${links.github}`,
+    `TryHackMe: ${links.tryhackme}`,
+    `NetworkJourney: ${links.networkjourney}`,
+    `SubnetLab: ${links.subnetlab}`,
+    "",
+  ];
+}
+
 function showHomelab(): string[] {
   return [
     "",
-    "HOMELAB TOPOLOGY",
-    "════════════════",
+    "HOMELAB",
+    "═══════",
     "",
-    ...homelab.topology.split("\n"),
+    ...homelab.diagram.trim().split("\n"),
     "",
   ];
 }
